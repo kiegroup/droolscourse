@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<process xmlns="http://drools.org/drools-5.0/process"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+         xs:schemaLocation="http://drools.org/drools-5.0/process drools-processes-5.0.xsd"
+         type="RuleFlow" name="RuleFlow3" id="RF2" package-name="cours" >
+
+  <header>
+    <imports>
+      <import name="droolscours.Account" />
+    </imports>
+  </header>
+
+  <nodes>
+    <start id="1" name="Start" x="27" y="78" width="80" height="40" />
+    <ruleSet id="2" name="Calculate2" x="264" y="135" width="80" height="40" ruleFlowGroup="Group2" />
+    <ruleSet id="3" name="Calculate1" x="266" y="28" width="80" height="40" ruleFlowGroup="Group1" />
+    <end id="4" name="End" x="487" y="85" width="80" height="40" />
+    <join id="6" name="Join" x="357" y="91" width="80" height="40" type="2" />
+    <split id="7" name="Split" x="131" y="93" width="80" height="40" type="3" >
+      <constraints>
+        <constraint toNodeId="2" toType="DROOLS_DEFAULT" name="constraint" priority="1" type="rule" dialect="mvel" >Account(balance &lt;= 1000  )</constraint>
+        <constraint toNodeId="3" toType="DROOLS_DEFAULT" name="constraint" priority="1" type="rule" dialect="mvel" >Account(balance &gt; 1000  )</constraint>
+      </constraints>
+    </split>
+  </nodes>
+
+  <connections>
+    <connection from="7" to="2" />
+    <connection from="7" to="3" />
+    <connection from="6" to="4" />
+    <connection from="3" to="6" />
+    <connection from="2" to="6" />
+    <connection from="1" to="7" />
+  </connections>
+
+</process>

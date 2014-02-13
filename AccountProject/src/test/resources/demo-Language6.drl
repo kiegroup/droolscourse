@@ -1,0 +1,37 @@
+//#created on: 30 oct. 2010
+package cours
+
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.PrivateAccount;
+import droolscours.Customer;
+import droolscours.service.CustomerService;
+import java.util.ArrayList;
+import util.OutputDisplay;
+//#declare any global variables here
+global OutputDisplay result;
+global CustomerService serviceCustomer;
+
+rule "More then 2 CashFlow Line"
+	when
+		$c : Account( $acc : accountno )
+		$p : AccountingPeriod ($sDate : startDate ,$eDate : endDate )
+		$number : ArrayList(size >= 2 )
+              from collect( CashFlow( mvtDate >= $sDate && mvtDate  <= $eDate,accountNo == $acc ) )
+
+	then
+		result.showText("Found more than 2 CashFlow Lines");
+end
+
+rule "Numbers of  CashFlow Line"
+	when
+		$c : Account( $acc : accountno )
+		$p : AccountingPeriod ($sDate : startDate ,$eDate : endDate )
+		$number : ArrayList( )
+              from collect( CashFlow( mvtDate >= $sDate && mvtDate  <= $eDate,accountNo == $acc ) )
+
+	then
+		result.showText("Found "+$number+" more than 2 CashFlow Lines");
+end

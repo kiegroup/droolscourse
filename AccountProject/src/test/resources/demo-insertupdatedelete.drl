@@ -1,0 +1,23 @@
+//#created on: 30 oct. 2010
+package cours
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import util.OutputDisplay;
+//#declare any global variables here
+global OutputDisplay result;
+rule "Your First Rule revisited"
+	
+	when
+		Account(  )
+	then 
+		result.showText("Le compte existe donc déjà");
+		AccountingPeriod newPeriod = new AccountingPeriod();
+		insert (newPeriod);
+end
+rule "Rule on Period"
+	when
+		AccountingPeriod ()
+	then 
+		result.showText("Période de compte existe");
+end

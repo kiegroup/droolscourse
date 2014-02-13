@@ -1,0 +1,34 @@
+//#created on: 21 nov. 2010
+package droolscours.loyalty
+
+
+
+import util.MyDate;
+import droolscours.loyalty.domains.Ticket;
+import droolscours.loyalty.domains.TicketLine;
+import droolscours.loyalty.domains.Ligneop;
+import droolscours.loyalty.domains.Product
+import util.DateHelper;
+dialect "MVEL" 
+
+rule "createdateOpPampers"
+	when
+	then
+	   MyDate t = new MyDate();
+	   t.setUneDate1(DateHelper.getDate("2010-12-01"));
+	   t.setUneDate1(DateHelper.getDate("2010-12-31"));
+	   t.setUneOp("pampers");
+	   insert(t);
+end
+rule "opPameprs"
+	when
+		MyDate(uneOp=="pampers",$d1:uneDate1,$d2:uneDate2)
+		$t : Ticket(date >=$d1,date <=$d2)
+		$l : TicketLine(ticketID==$t.Id)
+		$p : Product(Id == $l.productID , name=="pampers")
+	then
+		$l.setOp(new Ligneop());
+		$l.getOp().setMontantReduction(new Float($l.getLineTotal()*0.2));
+		$l.getOp().setNomOP("opPameprs");
+end
+

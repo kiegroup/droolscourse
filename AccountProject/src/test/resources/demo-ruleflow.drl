@@ -1,0 +1,32 @@
+//#created on: 30 oct. 2010
+package cours
+
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import util.OutputDisplay;
+
+//#declare any global variables here
+
+
+global OutputDisplay result;
+
+
+rule "Account group1"
+	ruleflow-group "Group1"
+	when
+		Account(  )
+	then 
+		result.showText("Account in Group1");
+		
+end
+rule "Account group2"
+	ruleflow-group "Group2"
+	when
+		Account(  )
+	then 
+		result.showText("Account in Group2");
+		
+end
+

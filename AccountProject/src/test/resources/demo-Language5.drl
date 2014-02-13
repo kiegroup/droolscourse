@@ -1,0 +1,22 @@
+//#created on: 30 oct. 2010
+package cours
+
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.PrivateAccount;
+import droolscours.Customer;
+import droolscours.service.CustomerService;
+import util.OutputDisplay;
+//#declare any global variables here
+global OutputDisplay result;
+global CustomerService serviceCustomer;
+
+rule "ForAll"
+	when
+		$c : Customer()
+		$cc : Customer(name ==$c.name,surname==$c.surname,country !=$c.country) from serviceCustomer.getListCustomer();
+	then
+		result.showText("Found same customer in 2 countries");
+end
