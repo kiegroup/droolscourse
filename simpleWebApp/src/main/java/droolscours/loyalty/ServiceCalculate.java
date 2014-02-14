@@ -2,11 +2,12 @@ package droolscours.loyalty;
 
 import droolscours.loyalty.domains.Ticket;
 import org.chtijbug.drools.runtime.DroolsChtijbugException;
+import org.chtijbug.drools.runtime.RuleBaseBuilder;
 import org.chtijbug.drools.runtime.RuleBasePackage;
 import org.chtijbug.drools.runtime.RuleBaseSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import util.MyKnowledgeSessionHelper;
+import util.CoursHistoryContainer;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -34,7 +35,8 @@ public class ServiceCalculate implements IServiceCalculate {
         if (ruleBasePackage == null) {
 
             try {
-                ruleBasePackage = MyKnowledgeSessionHelper.getRuleBasePackage("File1.drl");
+                CoursHistoryContainer coursHistoryContainer = new CoursHistoryContainer();
+                ruleBasePackage= RuleBaseBuilder.createPackageBasePackageWithListener(coursHistoryContainer,"File1.drl");
             } catch (DroolsChtijbugException e) {
                 logger.error("Could not create RuleBase", e);
             }

@@ -16,7 +16,7 @@ public class CoursHistoryContainer implements HistoryListener {
     /**
      * Class Logger
      */
-    private static Logger logger = LoggerFactory.getLogger(MyKnowledgeSessionHelper.class);
+    private static Logger logger = LoggerFactory.getLogger(CoursHistoryContainer.class);
 
     @Override
     public void fireEvent(HistoryEvent historyEvent) throws DroolsChtijbugException {
