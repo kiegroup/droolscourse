@@ -2,8 +2,9 @@ package droolscours.loyalty;
 
 import droolscours.loyalty.domains.Ticket;
 import org.drools.runtime.StatefulKnowledgeSession;
-import util.KnowledgeSessionHelper;
+import util.MyKnowledgeSessionHelper;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 
 @WebService(endpointInterface = "droolscours.loyalty.IServiceCalculate")
@@ -20,8 +21,8 @@ public class ServiceCalculate  implements IServiceCalculate{
 
 
     @Override
-	public Ticket calculate( Ticket ticket) {
-		sessionStatefull = KnowledgeSessionHelper
+	public Ticket calculate( @WebParam(name = "ticket") Ticket ticket) {
+		sessionStatefull = MyKnowledgeSessionHelper
 				.getStatefulKnowledgeSession("File1.drl");
 		sessionStatefull.insert(ticket);
 		sessionStatefull.fireAllRules();

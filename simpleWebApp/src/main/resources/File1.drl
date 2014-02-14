@@ -14,11 +14,11 @@ dialect "MVEL"
 rule "createdateOpPampers"
 	when
 	then
-	   MyDate t = new MyDate();
-	   t.setUneDate1(DateHelper.getDate("2010-12-01"));
-	   t.setUneDate1(DateHelper.getDate("2010-12-31"));
-	   t.setUneOp("pampers");
-	   insert(t);
+	  // MyDate t = new MyDate();
+	  // t.setUneDate1(DateHelper.getDate("2010-12-01"));
+	  // t.setUneDate1(DateHelper.getDate("2010-12-31"));
+	  // t.setUneOp("pampers");
+	  // insert(t);
 end
 rule "opPameprs"
 	when

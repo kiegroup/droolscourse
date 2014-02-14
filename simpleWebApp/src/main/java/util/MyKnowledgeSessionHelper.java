@@ -12,7 +12,7 @@ import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.StatelessKnowledgeSession;
 
-public class KnowledgeSessionHelper {
+public class MyKnowledgeSessionHelper {
 	private static KnowledgeBase ruleBase = null;
 
 	private static KnowledgeBase createRuleBase(String drlFile) {
