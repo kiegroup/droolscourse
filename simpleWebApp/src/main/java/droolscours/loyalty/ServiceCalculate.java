@@ -36,11 +36,14 @@ public class ServiceCalculate implements IServiceCalculate {
 
             try {
                 CoursHistoryContainer coursHistoryContainer = new CoursHistoryContainer();
-                ruleBasePackage= RuleBaseBuilder.createPackageBasePackageWithListener(coursHistoryContainer,"File1.drl");
+                ruleBasePackage= RuleBaseBuilder.createPackageBasePackageWithListener(coursHistoryContainer, "File1.drl");
+                //ruleBasePackage= RuleBaseBuilder.createGuvnorRuleBasePackageWithListener(coursHistoryContainer,"http://localhost:8080", "drools-guvnor", "mypackage","1.27.0-PROD",
+                                                                                         // "admin", "admin");
             } catch (DroolsChtijbugException e) {
                 logger.error("Could not create RuleBase", e);
             }
         }
+
         RuleBaseSession sessionStatefull = null;
         try {
             sessionStatefull = ruleBasePackage.createRuleBaseSession();
