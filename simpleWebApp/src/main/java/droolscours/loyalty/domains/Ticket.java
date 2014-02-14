@@ -7,7 +7,7 @@ import java.util.List;
 public class Ticket {
 
 	private String Id;
-	private Date date;
+	private Date dateTicket;
 	private Float amount;
 	private Card loyaltyCard;
 	private Customer customer;
@@ -36,12 +36,12 @@ public class Ticket {
 		Id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDateTicket() {
+		return dateTicket;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateTicket(Date date) {
+		this.dateTicket = date;
 	}
 
 	private List<TicketLine> ticketLines = new ArrayList<TicketLine>();

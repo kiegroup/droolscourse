@@ -1,32 +1,54 @@
 package droolscours.loyalty;
 
 import droolscours.loyalty.domains.Ticket;
-import org.drools.runtime.StatefulKnowledgeSession;
+import org.chtijbug.drools.runtime.DroolsChtijbugException;
+import org.chtijbug.drools.runtime.RuleBasePackage;
+import org.chtijbug.drools.runtime.RuleBaseSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.MyKnowledgeSessionHelper;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
 @WebService(endpointInterface = "droolscours.loyalty.IServiceCalculate")
-public class ServiceCalculate  implements IServiceCalculate{
+public class ServiceCalculate implements IServiceCalculate {
 
 	/*
-	 * (non-Javadoc)
+     * (non-Javadoc)
 	 * 
 	 * @see
 	 * droolscours.loyalty.IServiceCalculate#calculate(droolscours.loyalty.domains
 	 * .Ticket)
 	 */
-	private StatefulKnowledgeSession sessionStatefull = null;
+    /**
+     * Class Logger
+     */
+    private static Logger logger = LoggerFactory.getLogger(ServiceCalculate.class);
 
+
+    private RuleBasePackage ruleBasePackage = null;
 
     @Override
-	public Ticket calculate( @WebParam(name = "ticket") Ticket ticket) {
-		sessionStatefull = MyKnowledgeSessionHelper
-				.getStatefulKnowledgeSession("File1.drl");
-		sessionStatefull.insert(ticket);
-		sessionStatefull.fireAllRules();
-		System.out.println("Works");
-		return ticket;
-	}
+    public Ticket calculate(@WebParam(name = "ticket") Ticket ticket) {
+        if (ruleBasePackage == null) {
+
+            try {
+                ruleBasePackage = MyKnowledgeSessionHelper.getRuleBasePackage("File1.drl");
+            } catch (DroolsChtijbugException e) {
+                logger.error("Could not create RuleBase", e);
+            }
+        }
+        RuleBaseSession sessionStatefull = null;
+        try {
+            sessionStatefull = ruleBasePackage.createRuleBaseSession();
+            sessionStatefull.insertByReflection(ticket);
+            sessionStatefull.fireAllRules();
+//            System.out.println(sessionStatefull.getHistoryContainer().getListHistoryEvent().toString());
+        } catch (DroolsChtijbugException e) {
+            logger.error("Error in fireallrules", e);
+        }
+
+        return ticket;
+    }
 }

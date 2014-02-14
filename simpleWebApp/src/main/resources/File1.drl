@@ -9,23 +9,24 @@ import droolscours.loyalty.domains.TicketLine;
 import droolscours.loyalty.domains.Ligneop;
 import droolscours.loyalty.domains.Product
 import util.DateHelper;
-dialect "MVEL" 
+dialect "mvel"
 
 rule "createdateOpPampers"
 	when
 	then
-	  // MyDate t = new MyDate();
-	  // t.setUneDate1(DateHelper.getDate("2010-12-01"));
-	  // t.setUneDate1(DateHelper.getDate("2010-12-31"));
-	  // t.setUneOp("pampers");
-	  // insert(t);
+	   MyDate t = new MyDate();
+	   t.setUneDate1(DateHelper.getDate("2010-12-01"));
+	   t.setUneDate2(DateHelper.getDate("2014-12-31"));
+	   t.setUneOp("pampers");
+	   insert(t);
 end
 rule "opPameprs"
 	when
 		MyDate(uneOp=="pampers",$d1:uneDate1,$d2:uneDate2)
-		$t : Ticket(date >=$d1,date <=$d2)
-		$l : TicketLine(ticketID==$t.Id)
-		$p : Product(Id == $l.productID , name=="pampers")
+		$p : Product( name=="pampers")
+		$l : TicketLine(product==$p)
+		$t : Ticket(ticketLines contains $l,dateTicket >= $d1 && dateTicket <= $d2)
+
 	then
 		$l.setOp(new Ligneop());
 		$l.getOp().setMontantReduction(new Float($l.getLineTotal()*0.2));
