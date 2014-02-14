@@ -13,6 +13,7 @@
     <module>AccountProject</module>
     <module>demodrools</module>
     <module>simpleWebApp</module>
+    <module>droolscourse-service</module>
   </modules>
   <properties>
 

@@ -1,9 +1,9 @@
 package util;
 
-import droolscours.loyalty.ServiceCalculate;
-import droolscours.loyalty.domains.Product;
-import droolscours.loyalty.domains.Ticket;
-import droolscours.loyalty.domains.TicketLine;
+import loyalty.DroolsServiceCalculate;
+import loyalty.domains.Product;
+import loyalty.domains.Ticket;
+import loyalty.domains.TicketLine;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,7 +14,7 @@ import droolscours.loyalty.domains.TicketLine;
 public class Main {
 
     public static void main(String args[]) throws Exception{
-        ServiceCalculate serviceCalculate= new ServiceCalculate();
+        DroolsServiceCalculate droolsServiceCalculate = new DroolsServiceCalculate();
         Ticket ticket = new Ticket();
         ticket.setDateTicket(DateHelper.getDate("2012-01-01"));
         TicketLine ticketLine = new TicketLine();
@@ -24,7 +24,7 @@ public class Main {
         Product product = new Product();
         product.setName("pampers");
         ticketLine.setProduct(product);
-        serviceCalculate.calculate(ticket);
+        droolsServiceCalculate.calculate(ticket);
 
     }
 }

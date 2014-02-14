@@ -1,4 +1,4 @@
-package droolscours.loyalty.domains;
+package loyalty.domains;
 
 public enum Gender {
 	Mr,Mrs,Miss

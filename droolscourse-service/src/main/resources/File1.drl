@@ -1,13 +1,13 @@
 //#created on: 21 nov. 2010
-package droolscours.loyalty
+package loyalty
 
 
 
 import util.MyDate;
-import droolscours.loyalty.domains.Ticket;
-import droolscours.loyalty.domains.TicketLine;
-import droolscours.loyalty.domains.Ligneop;
-import droolscours.loyalty.domains.Product
+import loyalty.domains.Ticket;
+import loyalty.domains.TicketLine;
+import loyalty.domains.Ligneop;
+import loyalty.domains.Product
 import util.DateHelper;
 dialect "mvel"
 

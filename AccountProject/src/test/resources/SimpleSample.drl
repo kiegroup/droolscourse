@@ -4,7 +4,7 @@ import com.sample.DroolsTest.Message;
 import droolscours.Account;
 import droolscours.AccountingPeriod;
 import droolscours.CashFlow;
-import util.DateHelper;
+import DateHelper;
 
 rule "Credit Rule"
 	when

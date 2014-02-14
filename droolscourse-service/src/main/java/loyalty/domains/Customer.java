@@ -1,4 +1,4 @@
-package droolscours.loyalty.domains;
+package loyalty.domains;
 
 import java.util.Date;
 

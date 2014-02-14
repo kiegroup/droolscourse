@@ -1,6 +1,6 @@
-package droolscours.loyalty;
+package loyalty;
 
-import droolscours.loyalty.domains.Ticket;
+import loyalty.domains.Ticket;
 import org.chtijbug.drools.runtime.DroolsChtijbugException;
 import org.chtijbug.drools.runtime.RuleBaseBuilder;
 import org.chtijbug.drools.runtime.RuleBasePackage;
@@ -9,29 +9,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.CoursHistoryContainer;
 
-import javax.jws.WebParam;
-import javax.jws.WebService;
-
-@WebService(endpointInterface = "droolscours.loyalty.IServiceCalculate")
-public class ServiceCalculate implements IServiceCalculate {
+public class DroolsServiceCalculate implements IDroolsServiceCalculate {
 
 	/*
      * (non-Javadoc)
 	 * 
 	 * @see
-	 * droolscours.loyalty.IServiceCalculate#calculate(droolscours.loyalty.domains
+	 * IDroolsServiceCalculate#calculate(droolscours.loyalty.domains
 	 * .Ticket)
 	 */
     /**
      * Class Logger
      */
-    private static Logger logger = LoggerFactory.getLogger(ServiceCalculate.class);
+    private static Logger logger = LoggerFactory.getLogger(DroolsServiceCalculate.class);
 
 
     private RuleBasePackage ruleBasePackage = null;
 
     @Override
-    public Ticket calculate(@WebParam(name = "ticket") Ticket ticket) {
+    public Ticket calculate( Ticket ticket) {
         if (ruleBasePackage == null) {
 
             try {

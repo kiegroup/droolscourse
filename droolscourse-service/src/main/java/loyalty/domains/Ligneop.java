@@ -1,4 +1,4 @@
-package droolscours.loyalty.domains;
+package loyalty.domains;
 
 public class Ligneop {
 	private String nomOP;

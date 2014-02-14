@@ -1,4 +1,4 @@
-package droolscours.loyalty.domains;
+package loyalty.domains;
 
 public class Card {
 	private String number;

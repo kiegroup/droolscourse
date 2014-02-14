@@ -1,6 +1,6 @@
-package droolscours.loyalty;
+package loyalty.service;
 
-import droolscours.loyalty.domains.Ticket;
+import loyalty.domains.Ticket;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -9,6 +9,6 @@ import javax.jws.WebService;
 public interface IServiceCalculate {
 
     @WebMethod(operationName = "calculate")
-	public abstract Ticket calculate( Ticket ticket);
+	public abstract Ticket calculate(Ticket ticket);
 
 }
