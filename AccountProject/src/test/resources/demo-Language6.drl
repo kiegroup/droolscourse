@@ -23,6 +23,11 @@ rule "More then 2 CashFlow Line"
 
 	then
 		result.showText("Found more than 2 CashFlow Lines");
+		result.showText("<<<<<<<<<<");
+		for (Object ff : $number){
+		    result.showText(ff.toString());
+		}
+		result.showText(">>>>>>>>>>>>>>>>");
 end
 
 rule "Numbers of  CashFlow Line"

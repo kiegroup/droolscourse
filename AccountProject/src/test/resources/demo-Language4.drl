@@ -14,10 +14,19 @@ global OutputDisplay result;
 
 rule "ForAll"
 	when
-		$acc : Account()
-		forall (   Account( this==$acc, $no : accountno  )
+
+		forall (   Account( $no : accountno  )
 					CashFlow( accountNo  == $no)
 				   )
 	then
-		result.showText("All mouvements concerns account no " + $acc.getAccountno());
+		result.showText("All mouvements concerns all account ");
+end
+rule "ForAll2"
+	when
+
+		   Account( $no : accountno  )
+			CashFlow( accountNo  == $no)
+
+	then
+		result.showText("All mouvements concerns only one account ");
 end

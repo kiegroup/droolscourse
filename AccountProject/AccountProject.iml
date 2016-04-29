@@ -13,18 +13,18 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.drools:drools-compiler:5.6.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.drools:drools-core:5.6.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.mvel:mvel2:2.1.8.Final" level="project" />
     <orderEntry type="library" name="Maven: org.drools:knowledge-api:5.6.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.4" level="project" />
     <orderEntry type="library" name="Maven: org.drools:knowledge-internal-api:5.6.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr-runtime:3.3" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr:3.3" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:stringtemplate:3.2.1" level="project" />
     <orderEntry type="library" name="Maven: antlr:antlr:2.7.7" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jdt.core.compiler:ecj:3.5.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mvel:mvel2:2.1.8.Final" level="project" />
     <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.4.1" level="project" />
     <orderEntry type="library" name="Maven: xmlpull:xmlpull:1.1.3.1" level="project" />
     <orderEntry type="library" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jdt.core.compiler:ecj:3.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.jbpm:jbpm-bpmn2:5.5.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jbpm:jbpm-flow-builder:5.5.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jbpm:jbpm-flow:5.5.0.Final" level="project" />
@@ -32,4 +32,3 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.5" level="project" />
   </component>
 </module>
-

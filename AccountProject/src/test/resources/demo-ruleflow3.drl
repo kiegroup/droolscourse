@@ -15,7 +15,7 @@ global OutputDisplay result;
 rule "start process"
 	when
 	then
-		kcontext.getKnowledgeRuntime().startProcess("RF2");
+		kcontext.getKnowledgeRuntime().startProcess("RF3");
 end
 
 rule "Account group1"

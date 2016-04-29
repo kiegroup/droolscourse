@@ -1,19 +1,12 @@
 package droolscours;
 
+import droolscours.service.CustomerService;
 import junit.framework.Assert;
-
-import org.drools.audit.WorkingMemoryFileLogger;
-import org.drools.event.rule.ObjectInsertedEvent;
-import org.drools.event.rule.ObjectRetractedEvent;
-import org.drools.event.rule.ObjectUpdatedEvent;
-import org.drools.event.rule.WorkingMemoryEventListener;
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.runtime.rule.FactHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import droolscours.service.CustomerService;
-
 import util.DateHelper;
 import util.KnowledgeSessionHelper;
 import util.OutputDisplay;
@@ -197,12 +190,17 @@ public class Testlanguage {
 		cash2.setMvtDate(DateHelper.getDate("2010-02-15"));
 		cash2.setType(CashFlow.DEBIT);
 		sessionStatefull.insert(cash2);
+		Account a2 = new Account();
+				a2.setAccountno(2);
+				a2.setBalance(0);
+				sessionStatefull.insert(a2);
 		CashFlow cash3 = new CashFlow();
-		cash3.setAccountNo(1);
+		cash3.setAccountNo(2);
 		cash3.setAmount(1000);
 		cash3.setMvtDate(DateHelper.getDate("2010-04-15"));
 		cash3.setType(CashFlow.CREDIT);
 		sessionStatefull.insert(cash3);
+
 		sessionStatefull.fireAllRules();
 	}
 	@Test
@@ -239,10 +237,12 @@ public class Testlanguage {
 		OutputDisplay display = new OutputDisplay();
 		sessionStatefull.setGlobal("result", display);
 		sessionStatefull.insert(new Account(1,0));
-		sessionStatefull.insert(new CashFlow(DateHelper.getDate("2010-01-15"),1000,CashFlow.CREDIT,1));
+		FactHandle fa = sessionStatefull.insert(new CashFlow(DateHelper.getDate("2010-01-15"), 1000, CashFlow.CREDIT, 1));
 		sessionStatefull.insert(new CashFlow(DateHelper.getDate("2010-02-15"),500,CashFlow.DEBIT,1));
 		sessionStatefull.insert(new CashFlow(DateHelper.getDate("2010-04-15"),1000,CashFlow.CREDIT,1));
-		sessionStatefull.insert(new AccountingPeriod(DateHelper.getDate("2010-01-01"),DateHelper.getDate("2010-31-31")));
+		sessionStatefull.insert(new AccountingPeriod(DateHelper.getDate("2010-01-01"),DateHelper.getDate("2010-12-31")));
+		sessionStatefull.fireAllRules();
+		sessionStatefull.retract(fa);
 		sessionStatefull.fireAllRules();
 	}
 }

@@ -20,11 +20,4 @@ rule "Your First Rule revisited"
 		
 end
 
-rule "Your Second Rule"
-	//#include attributes such as "salience" here...
-	when
-		//#conditions
-	then 
-		//#actions
-		
-end
+

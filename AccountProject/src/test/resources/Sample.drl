@@ -6,7 +6,7 @@ rule "Hello World"
 	when
 		m : Message( status == Message.HELLO, myMessage : message )
 	then
-		System.out.println( myMessage ); 
+		System.out.println( m.getMessage() ); 
 		m.setMessage( "Goodbye cruel world" );
 		m.setStatus( Message.GOODBYE );
 		update( m );

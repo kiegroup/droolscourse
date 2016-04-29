@@ -58,7 +58,9 @@ public class TestRuleFlow {
 		sessionStatefull.insert(a);
 		AccountingPeriod period = new AccountingPeriod();
 		sessionStatefull.insert(period);
+		
 		sessionStatefull.fireAllRules();
+		
 	}
 
 }

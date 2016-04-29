@@ -8,6 +8,7 @@ import droolscours.CashFlow;
 import util.OutputDisplay;
 
 global OutputDisplay result;
+
 rule "Credit rule"
 	
 	when

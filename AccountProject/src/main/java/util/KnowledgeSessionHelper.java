@@ -59,19 +59,19 @@ public class KnowledgeSessionHelper {
 			String drlFile) {
 		StatefulKnowledgeSession session = getStatefulKnowledgeSession(drlFile);
 		session.addEventListener(new WorkingMemoryEventListener() {
-			@Override
+			//@Override
 			public void objectUpdated(ObjectUpdatedEvent arg0) {
 				System.out.println("Object mise à jour \n"
 						+ "Nouvelles valeurs \n" + arg0.getObject().toString());
 			}
 
-			@Override
+			//@Override
 			public void objectRetracted(ObjectRetractedEvent arg0) {
 				System.out.println("Object retiré \n"
 						+ arg0.getOldObject().toString());
 			}
 
-			@Override
+			//@Override
 			public void objectInserted(ObjectInsertedEvent arg0) {
 				System.out.println("Object inséré \n"
 						+ arg0.getObject().toString());
