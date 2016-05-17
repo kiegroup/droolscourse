@@ -1,0 +1,22 @@
+//#created on: 30 oct. 2010
+package cours
+
+//list any import classes here.
+import droolscours.Account;
+import droolscours.util.OutputDisplay;
+
+//#declare any global variables here
+
+
+global OutputDisplay showResult;
+
+rule "Your First Rule revisited"
+	
+	when
+		Account(  )
+	then 
+		showResult.showText("Le compte existe donc déjà");
+		
+end
+
+

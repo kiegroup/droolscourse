@@ -1,0 +1,32 @@
+//#created on: 30 oct. 2010
+package cours
+
+
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.util.OutputDisplay;
+
+global OutputDisplay showResult;
+
+rule "Credit rule"
+	
+	when
+		$cash :CashFlow( $aDate : mvtDate, $no : accountNo ,type == CashFlow.CREDIT )
+		$acc : Account(accountno ==$no  )
+		$period : AccountingPeriod(  startDate <= $aDate && endDate >= $aDate)
+	then 
+		$acc.setBalance($acc.getBalance()+$cash.getAmount());
+		showResult.showText("le compte no "+$no+ " a maintenant une valeur de "+$acc.getBalance());
+end
+rule "Debit rule"
+	
+	when
+		$cash :CashFlow( $aDate : mvtDate, $no : accountNo ,type == CashFlow.DEBIT )
+		$acc : Account(accountno ==$no  )
+		$period : AccountingPeriod(  startDate <= $aDate && endDate >= $aDate)
+	then 
+		$acc.setBalance($acc.getBalance()-$cash.getAmount());
+		showResult.showText("le compte no "+$no+ " a maintenant une valeur de "+$acc.getBalance());
+end
+

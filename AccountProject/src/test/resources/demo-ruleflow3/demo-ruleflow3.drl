@@ -1,0 +1,37 @@
+//#created on: 30 oct. 2010
+package cours
+
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.util.OutputDisplay;
+
+//#declare any global variables here
+
+
+global OutputDisplay showResult;
+
+rule "start process"
+	when
+	then
+		kcontext.getKieRuntime().startProcess("RF3");
+end
+
+rule "Account group1"
+	ruleflow-group "Group1"
+	when
+		Account(balance > 0  )
+	then 
+		showResult.showText("Account in Group1 > 1000 ");
+		
+end
+rule "Account group2"
+	ruleflow-group "Group2"
+	when
+		Account(  )
+	then 
+		showResult.showText("Account in Group2 < 1000");
+		
+end
+

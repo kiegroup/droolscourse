@@ -1,0 +1,15 @@
+package com.sample
+
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+
+rule "Credit Rule"
+	when
+	   acc:  Account( no : accountno )
+	   period : AccountingPeriod(s :  startDate , e:  endDate )
+	   act : CashFlow( type == CashFlow.CREDIT ,mvtDate >= s && mvtDate <=e  ,accountNo ==no) 
+	then
+	  acc.setBalance(acc.getBalance()+act.getAmount());
+end
+

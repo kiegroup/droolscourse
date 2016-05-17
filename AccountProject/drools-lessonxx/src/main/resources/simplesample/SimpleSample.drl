@@ -1,0 +1,17 @@
+package simplesample
+
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.util.OutputDisplay;
+global OutputDisplay showResults;
+rule "Credit Rule"
+	when
+	   acco:  Account( no : accountno )
+	   period : AccountingPeriod(s :  startDate , e:  endDate )
+	   act : CashFlow( type == CashFlow.CREDIT ,mvtDate >= s && mvtDate <=e  ,accountNo ==no)
+	then
+	  acco.setBalance(acco.getBalance()+act.getAmount());
+	  showResults.showText("The new balance is now "+acco.getBalance());
+end
+

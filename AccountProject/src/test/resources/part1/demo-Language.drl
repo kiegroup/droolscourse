@@ -1,0 +1,34 @@
+//#created on: 30 oct. 2010
+package cours
+
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.util.OutputDisplay;
+
+//#declare any global variables here
+
+
+global OutputDisplay showResult;
+
+
+rule "Account and accounting period both exist"
+	
+	when
+		Account(  )
+		AccountingPeriod(  )
+	then 
+		showResult.showText("Un compte est un accountingperiod existe");
+		
+end
+rule "Credit rule"
+	
+	when
+		$cash :CashFlow( $no : accountNo ,type == CashFlow.CREDIT )
+		$acc : Account(accountno ==$no  )
+	then 
+		$acc.setBalance($acc.getBalance()+$cash.getAmount());
+		showResult.showText("le compte no "+$no+ " a maintenant une valeur de "+$acc.getBalance());
+end
+

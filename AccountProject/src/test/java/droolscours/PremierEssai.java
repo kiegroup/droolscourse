@@ -1,51 +1,48 @@
 package droolscours;
 
-import org.drools.event.rule.ObjectInsertedEvent;
-import org.drools.event.rule.ObjectRetractedEvent;
-import org.drools.event.rule.ObjectUpdatedEvent;
-import org.drools.event.rule.WorkingMemoryEventListener;
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.StatelessKnowledgeSession;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
+import org.kie.api.event.rule.ObjectDeletedEvent;
+import org.kie.api.event.rule.ObjectInsertedEvent;
+import org.kie.api.event.rule.ObjectUpdatedEvent;
+import org.kie.api.event.rule.RuleRuntimeEventListener;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.StatelessKieSession;
 import util.DateHelper;
 import util.KnowledgeSessionHelper;
 
 
 
 public class PremierEssai {
-	StatelessKnowledgeSession sessionStateless = null;
-	StatefulKnowledgeSession sessionStatefull = null;
+	static KieContainer kieContainer;
+	StatelessKieSession sessionStateless = null;
+	KieSession sessionStatefull = null;
 
-	@Test
-	public void test1() {
-		sessionStateless = KnowledgeSessionHelper
-				.getStatelessKnowledgeSession("Sample.drl");
-		sessionStateless.execute(new String("Hello"));
+	@BeforeClass
+	public static void beforeClass() {
+		kieContainer = KnowledgeSessionHelper.createRuleBase();
 	}
 
 	@Test
 	public void testSimple() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSession("SimpleSample.drl");
-		sessionStatefull.addEventListener(new WorkingMemoryEventListener() {
-			//@Override
-			public void objectUpdated(ObjectUpdatedEvent arg0) {
-				System.out.println("Object mise à jour \n"
-						+ "Nouvelles valeurs \n" + arg0.getObject().toString());
+				.getStatefulKnowledgeSession(kieContainer, "simplesample-session");
+		sessionStatefull.addEventListener(new RuleRuntimeEventListener() {
+			public void objectInserted(ObjectInsertedEvent event) {
+				System.out.println("Object inserted \n"
+						+ event.getObject().toString());
 			}
 
-			//@Override
-			public void objectRetracted(ObjectRetractedEvent arg0) {
-				System.out.println("Object retiré \n"
-						+ arg0.getOldObject().toString());
+			public void objectUpdated(ObjectUpdatedEvent event) {
+				System.out.println("Object was updated \n"
+						+ "new Content \n" + event.getObject().toString());
 			}
 
-			//Override
-			public void objectInserted(ObjectInsertedEvent arg0) {
-				System.out.println("Object inséré \n"
-						+ arg0.getObject().toString());
+			public void objectDeleted(ObjectDeletedEvent event) {
+				System.out.println("Object retracted \n"
+						+ event.getOldObject().toString());
 			}
 		});
 		Account account = new Account();

@@ -1,20 +1,27 @@
 package droolscours;
 
 import droolscours.service.CustomerService;
+import droolscours.util.OutputDisplay;
 import junit.framework.Assert;
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.rule.FactHandle;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
 import util.DateHelper;
 import util.KnowledgeSessionHelper;
-import util.OutputDisplay;
 
 
 public class Testlanguage {
-	StatefulKnowledgeSession sessionStatefull = null;
+	static KieContainer kieContainer;
+	KieSession sessionStatefull = null;
 
+	@BeforeClass
+	public static void beforeClass() {
+		kieContainer = KnowledgeSessionHelper.createRuleBase();
+	}
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("------------Before------------");
@@ -28,10 +35,10 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait1() {
 		sessionStatefull = KnowledgeSessionHelper
-	     .getStatefulKnowledgeSessionWithCallback("demo-Language.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part1-rules");
 
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		sessionStatefull.insert(a);
 		AccountingPeriod period = new AccountingPeriod();
@@ -42,9 +49,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait2() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part1-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		a.setAccountno(1);
 		a.setBalance(0);
@@ -61,9 +68,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait3() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part1-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		a.setAccountno(1);
 		a.setBalance(0);
@@ -86,9 +93,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait4() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language2.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part2-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		a.setAccountno(1);
 		a.setBalance(0);
@@ -121,9 +128,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait5() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language3.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part3-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Customer customer = new Customer();
 		customer.setName("Héron");
 		customer.setSurname("Nicolas");
@@ -135,9 +142,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait6() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language3.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part3-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Customer customer = new Customer();
 		customer.setName("Héron");
 		customer.setSurname("Nicolas");
@@ -151,9 +158,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait7() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language3.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part3-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account pAccount = new Account();
 		sessionStatefull.insert(pAccount);	
 		sessionStatefull.fireAllRules();
@@ -161,9 +168,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait8() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language3.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part3-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account pAccount = new Account();
 		sessionStatefull.insert(pAccount);	
 		sessionStatefull.fireAllRules();
@@ -171,9 +178,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait9() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language4.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part4-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		a.setAccountno(1);
 		a.setBalance(0);
@@ -206,9 +213,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait10() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language5.drl");	
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part5-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		sessionStatefull.setGlobal("serviceCustomer", new CustomerService());
 		Customer c = new Customer("Héron","Nicolas","A");
 		sessionStatefull.insert(c);
@@ -217,9 +224,9 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait11() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language6.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part6-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		a.setAccountno(1);
 		a.setBalance(0);
@@ -233,16 +240,17 @@ public class Testlanguage {
 	@Test
 	public void testdeuxFait12() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback("demo-Language7.drl");
+				.getStatefulKnowledgeSessionWithCallback(kieContainer, "part7-rules");
 		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("result", display);
+		sessionStatefull.setGlobal("showResult", display);
 		sessionStatefull.insert(new Account(1,0));
+
 		FactHandle fa = sessionStatefull.insert(new CashFlow(DateHelper.getDate("2010-01-15"), 1000, CashFlow.CREDIT, 1));
 		sessionStatefull.insert(new CashFlow(DateHelper.getDate("2010-02-15"),500,CashFlow.DEBIT,1));
 		sessionStatefull.insert(new CashFlow(DateHelper.getDate("2010-04-15"),1000,CashFlow.CREDIT,1));
 		sessionStatefull.insert(new AccountingPeriod(DateHelper.getDate("2010-01-01"),DateHelper.getDate("2010-12-31")));
 		sessionStatefull.fireAllRules();
-		sessionStatefull.retract(fa);
+		sessionStatefull.delete(fa);
 		sessionStatefull.fireAllRules();
 	}
 }

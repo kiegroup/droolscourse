@@ -1,0 +1,52 @@
+//#created on: 30 oct. 2010
+package cours
+
+//list any import classes here.
+import droolscours.Account;
+import droolscours.Customer;
+import droolscours.AccountingPeriod;
+import droolscours.PrivateAccount;
+import droolscours.CashFlow;
+import droolscours.util.OutputDisplay;
+
+//declare any global variables here
+
+
+global OutputDisplay showResult;
+
+rule "Your First Rule"
+
+	when
+		Account(  )
+	then
+		System.out.println("The bank account exists");
+
+end
+
+
+
+rule "Your First Rule revisited with Global"
+
+	when
+		Customer()
+	then
+		showResult.showText("A customer exists");
+
+end
+
+rule "Your First Rule revisited AccountingPeriod"
+
+	when
+		CashFlow(  )
+	then
+		showResult.showText("The CashFlow exists, inserting an accounting Period");
+		AccountingPeriod newPeriod = new AccountingPeriod();
+		insert (newPeriod);
+end
+
+rule "Rule on AccountingPeriod that are inserting"
+	when
+		AccountingPeriod ()
+	then
+		showResult.showText("Accounting period exists");
+end
