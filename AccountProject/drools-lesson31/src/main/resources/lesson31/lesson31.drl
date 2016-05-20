@@ -11,14 +11,16 @@ import droolscours.util.OutputDisplay;
 //#declare any global variables here
 global OutputDisplay showResult;
 
-rule "Le cashFlow est du crédit ou du débit"
+rule "The cashFlow can be a  credit or a debit"
 
 	when
 		$cash :CashFlow(type in ( CashFlow.DEBIT,CashFlow.CREDIT) )
 
 	then
-		showResult.showText("Cash Flow est un crédit ou un débit");
+		showResult.showText("The cashFlow is a credit or a debit");
 end
+
+
 rule "Accessor"
 
 	when

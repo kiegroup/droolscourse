@@ -20,7 +20,7 @@ public class Testlesson8 {
 	@Test
 	public void testUnFaitSansFait() {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSession(kieContainer,"lesson1-session");
+				.getStatefulKnowledgeSession(kieContainer, "lesson8-session");
 		sessionStatefull.fireAllRules();
 		System.out.println("Did you see something ?");
 	}
