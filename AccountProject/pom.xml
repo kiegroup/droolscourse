@@ -13,11 +13,11 @@
   <modules>
     <module>drools-lesson1</module>
     <module>drools-lesson2</module>
-    <module>drools-lesson3</module>
-    <module>drools-lesson4</module>
-    <module>drools-lesson5</module>
-    <module>drools-lesson6</module>
-    <module>drools-lesson7</module>
+    <module>drools-lesson31</module>
+    <module>drools-lesson32</module>
+    <module>drools-lesson33</module>
+    <module>drools-lesson34</module>
+    <module>drools-lesson35</module>
     <module>drools-lesson8</module>
     <module>drools-lesson-pojo</module>
   </modules>

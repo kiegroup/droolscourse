@@ -1,0 +1,32 @@
+//#created on: 30 oct. 2010
+package cours
+
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.PrivateAccount;
+import droolscours.Customer;
+import droolscours.util.OutputDisplay;
+//#declare any global variables here
+global OutputDisplay showResult;
+
+
+rule "ForAll"
+	when
+
+		forall (   Account( $no : accountno  )
+					CashFlow( accountNo  == $no)
+				   )
+	then
+		showResult.showText("All mouvements concerns all account ");
+end
+rule "ForAll2"
+	when
+
+		   Account( $no : accountno  )
+			CashFlow( accountNo  == $no)
+
+	then
+		showResult.showText("All mouvements concerns only one account ");
+end

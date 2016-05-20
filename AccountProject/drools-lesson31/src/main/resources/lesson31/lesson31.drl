@@ -1,0 +1,51 @@
+//#created on: 30 oct. 2010
+package cours
+
+//#list any import classes here.
+import droolscours.Account;
+import droolscours.AccountingPeriod;
+import droolscours.CashFlow;
+import droolscours.PrivateAccount;
+import droolscours.Customer;
+import droolscours.util.OutputDisplay;
+//#declare any global variables here
+global OutputDisplay showResult;
+
+rule "Le cashFlow est du crédit ou du débit"
+
+	when
+		$cash :CashFlow(type in ( CashFlow.DEBIT,CashFlow.CREDIT) )
+
+	then
+		showResult.showText("Cash Flow est un crédit ou un débit");
+end
+rule "Accessor"
+
+	when
+		$cash :PrivateAccount( owner.name =="Héron" )
+
+	then
+		showResult.showText("Account is owned by Héron");
+end
+rule "infixAnd"
+	when
+	  ( $c1 : Customer ( country=="GB") and  PrivateAccount(  owner==$c1))
+		    or
+       ( $c1 : Customer (country=="US") and PrivateAccount(  owner==$c1))
+
+
+	then
+		showResult.showText("Person lives in GB or US");
+end
+rule "no customer"
+	when
+		not Customer(  )
+	then
+		showResult.showText("No customer");
+end
+rule "Exists"
+	when
+		exists Account(  )
+	then
+		showResult.showText("Account exists");
+end

@@ -1,6 +1,5 @@
 package droolscours;
 
-import droolscours.util.OutputDisplay;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,24 +10,25 @@ import org.kie.api.event.rule.RuleRuntimeEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
-import org.omg.CORBA.portable.OutputStream;
 import util.DateHelper;
 import util.KnowledgeSessionHelper;
 
 
+
 public class PremierEssai {
-	StatelessKieSession sessionStateless = null;
-	KieSession  sessionStatefull = null;
 	static KieContainer kieContainer;
+	StatelessKieSession sessionStateless = null;
+	KieSession sessionStatefull = null;
+
 	@BeforeClass
-	public static void beforeClass(){
-		kieContainer=KnowledgeSessionHelper.createRuleBase();
+	public static void beforeClass() {
+		kieContainer = KnowledgeSessionHelper.createRuleBase();
 	}
 
 	@Test
 	public void testSimple() throws Exception {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSession(kieContainer,"simplesample-session");
+				.getStatefulKnowledgeSession(kieContainer, "simplesample-session");
 		sessionStatefull.addEventListener(new RuleRuntimeEventListener() {
 			public void objectInserted(ObjectInsertedEvent event) {
 				System.out.println("Object inserted \n"
@@ -45,8 +45,6 @@ public class PremierEssai {
 						+ event.getOldObject().toString());
 			}
 		});
-		OutputDisplay showResult = new OutputDisplay();
-		sessionStatefull.setGlobal("showResults",showResult);
 		Account account = new Account();
 		account.setAccountno(1);
 		sessionStatefull.insert(account);

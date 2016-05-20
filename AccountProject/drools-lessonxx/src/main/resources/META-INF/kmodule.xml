@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
-
+    <kbase name="sample" packages="sample">
+        <ksession name="sample-session"/>
+    </kbase>
     <kbase name="simplesample" packages="simplesample">
         <ksession name="simplesample-session"/>
     </kbase>
-
+    <kbase name="part1" packages="part1">
+        <ksession name="part1-rules"/>
+    </kbase>
+    <kbase name="part2" packages="part2">
+        <ksession name="part2-rules"/>
+    </kbase>
+    <kbase name="part3" packages="part3">
+        <ksession name="part3-rules"/>
+    </kbase>
+    <kbase name="part4" packages="part4">
+        <ksession name="part4-rules"/>
+    </kbase>
+    <kbase name="part5" packages="part5">
+        <ksession name="part5-rules"/>
+    </kbase>
+    <kbase name="part6" packages="part6">
+        <ksession name="part6-rules"/>
+    </kbase>
+    <kbase name="part7" packages="part7">
+        <ksession name="part7-rules"/>
+    </kbase>
+    <kbase name="demo" packages="demo">
+        <ksession name="demo-rules"/>
+    </kbase>
+    <kbase name="demo-global" packages="demo-global">
+        <ksession name="demo-global-rules"/>
+    </kbase>
+    <kbase name="demo-insertupdatedelete" packages="demo-insertupdatedelete">
+        <ksession name="demo-insertupdatedelete-rules"/>
+    </kbase>
+    <kbase name="demo-ruleflow1" packages="demo-ruleflow1">
+        <ksession name="demo-ruleflow1-rules"/>
+    </kbase>
+    <kbase name="demo-ruleflow2" packages="demo-ruleflow2">
+        <ksession name="demo-ruleflow2-rules"/>
+    </kbase>
+    <kbase name="demo-ruleflow3" packages="demo-ruleflow3">
+        <ksession name="demo-ruleflow3-rules"/>
+    </kbase>
 </kmodule>
