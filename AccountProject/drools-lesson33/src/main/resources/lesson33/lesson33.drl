@@ -13,7 +13,7 @@ import droolscours.util.OutputDisplay;
 global OutputDisplay showResult;
 global CustomerService serviceCustomer;
 
-rule "ForAll"
+rule "FromCondition"
 	when
 		$c : Customer()
 		$cc : Customer(name ==$c.name,surname==$c.surname,country !=$c.country) from serviceCustomer.getListCustomer();

@@ -1,5 +1,7 @@
 package droolscours;
 
+import droolscours.service.CustomerService;
+import droolscours.util.OutputDisplay;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kie.api.runtime.KieContainer;
@@ -19,11 +21,15 @@ public class Testlesson33 {
     }
 
     @Test
-    public void testUnFaitSansFait() {
+    public void testFromLHS() throws Exception {
         sessionStatefull = KnowledgeSessionHelper
-                .getStatefulKnowledgeSession(kieContainer, "lesson1-session");
+                .getStatefulKnowledgeSessionWithCallback(kieContainer, "lesson33-session");
+        OutputDisplay display = new OutputDisplay();
+        sessionStatefull.setGlobal("showResult", display);
+        sessionStatefull.setGlobal("serviceCustomer", new CustomerService());
+        Customer c = new Customer("Héron", "Nicolas", "A");
+        sessionStatefull.insert(c);
         sessionStatefull.fireAllRules();
-        System.out.println("Did you see something ?");
     }
 
 }
