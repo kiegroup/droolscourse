@@ -4,7 +4,7 @@ public class TaxesCostElement implements CostElement {
     private double amount;
     private City city;
 
-    private Pallet pallet;
+
 
     public double getAmount() {
         return amount;
@@ -22,18 +22,10 @@ public class TaxesCostElement implements CostElement {
         this.city = city;
     }
 
-    public Pallet getPallet() {
-        return pallet;
-    }
-
-    public void setPallet(Pallet pallet) {
-        this.pallet = pallet;
-    }
 
     @Override
     public String toString() {
-        return "TaxesCostElement [amount=" + amount + ", city=" + city + ", pallet="
-                + pallet + "]";
+        return "TaxesCostElement [amount=" + amount + ", city=" + city + "]";
     }
 
 }
