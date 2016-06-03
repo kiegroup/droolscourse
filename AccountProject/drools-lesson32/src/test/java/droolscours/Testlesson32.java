@@ -1,5 +1,6 @@
 package droolscours;
 
+import droolscours.util.OutputDisplay;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kie.api.runtime.KieContainer;
@@ -19,11 +20,34 @@ public class Testlesson32 {
     }
 
     @Test
-    public void testUnFaitSansFait() {
+    public void testForALl() throws Exception {
         sessionStatefull = KnowledgeSessionHelper
-                .getStatefulKnowledgeSession(kieContainer, "lesson1-session");
+                .getStatefulKnowledgeSessionWithCallback(kieContainer, "lesson32-session");
+        OutputDisplay display = new OutputDisplay();
+        sessionStatefull.setGlobal("showResult", display);
+        Account a = new Account();
+        a.setAccountno(1);
+        a.setBalance(0);
+        sessionStatefull.insert(a);
+        CashFlow cash1 = new CashFlow();
+        cash1.setAccountNo(1);
+
+
+        sessionStatefull.insert(cash1);
+        CashFlow cash2 = new CashFlow();
+        cash2.setAccountNo(1);
+
+        sessionStatefull.insert(cash2);
+        Account a2 = new Account();
+        a2.setAccountno(2);
+        a2.setBalance(0);
+        sessionStatefull.insert(a2);
+        CashFlow cash3 = new CashFlow();
+        cash3.setAccountNo(2);
+
+        sessionStatefull.insert(cash3);
+
         sessionStatefull.fireAllRules();
-        System.out.println("Did you see something ?");
     }
 
 }

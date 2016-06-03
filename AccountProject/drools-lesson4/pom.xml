@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>drools-lesson8</artifactId>
+    <artifactId>drools-lesson4</artifactId>
 
     <dependencies>
         <dependency>

@@ -14,7 +14,6 @@ rule "Credit rule"
    	when
    		$cash :CashFlow( $aDate : mvtDate, $no : accountNo ,type == CashFlow.CREDIT )
    		$acc : Account(accountno ==$no  )
-   		$period : AccountingPeriod(  startDate <= $aDate && endDate >= $aDate)
    	then
    		$acc.setBalance($acc.getBalance()+$cash.getAmount());
    		showResults.showText("Account no "+$acc.getAccountno()+ " has now a balance of "+$acc.getBalance());
@@ -24,7 +23,6 @@ rule "Debit rule"
 	when
 		$cash :CashFlow( $aDate : mvtDate, $no : accountNo ,type == CashFlow.DEBIT )
 		$acc : Account(accountno ==$no  )
-		$period : AccountingPeriod(  startDate <= $aDate && endDate >= $aDate)
 	then
 		$acc.setBalance($acc.getBalance()-$cash.getAmount());
 		showResults.showText("Account no "+$acc.getAccountno()+ " has now a balance of "+$acc.getBalance());

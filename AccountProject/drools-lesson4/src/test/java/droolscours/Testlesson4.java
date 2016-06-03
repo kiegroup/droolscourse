@@ -32,7 +32,7 @@ public class Testlesson4 {
 	@Test
 	public void testRuleFlow1() {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionForJBPM(kieContainer, "ksession-lesson4");
+				.getStatefulKnowledgeSessionForJBPM(kieContainer, "lesson4-session");
 		OutputDisplay display = new OutputDisplay();
 		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
@@ -43,7 +43,7 @@ public class Testlesson4 {
 	@Test
 	public void testRuleFlow2() {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionForJBPM(kieContainer, "ksession-lesson4");
+				.getStatefulKnowledgeSessionForJBPM(kieContainer, "lesson4-session");
 		OutputDisplay display = new OutputDisplay();
 		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();

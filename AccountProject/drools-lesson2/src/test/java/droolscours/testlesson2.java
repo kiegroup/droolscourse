@@ -1,6 +1,7 @@
 package droolscours;
 
 import droolscours.util.OutputDisplay;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kie.api.runtime.KieContainer;
@@ -20,25 +21,12 @@ public class Testlesson2 {
 		kieContainer=KnowledgeSessionHelper.createRuleBase();
 	}
 
-	@Test
-	public void testdeuxFait1() {
-		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSessionWithCallback(kieContainer,"lesson2-session");
-
-		OutputDisplay display = new OutputDisplay();
-		sessionStatefull.setGlobal("showResult", display);
-		Account a = new Account();
-		sessionStatefull.insert(a);
-		AccountingPeriod period = new AccountingPeriod();
-		sessionStatefull.insert(period);
-		sessionStatefull.fireAllRules();
-	}
     @Test
-    public void testdeuxFait2() throws Exception {
+    public void testTwoFacts() {
         sessionStatefull = KnowledgeSessionHelper
-                .getStatefulKnowledgeSessionWithCallback(kieContainer,"lesson2-session");
+                .getStatefulKnowledgeSessionWithCallback(kieContainer, "lesson2a-session");
         OutputDisplay display = new OutputDisplay();
-        sessionStatefull.setGlobal("showResult", display);
+        sessionStatefull.setGlobal("showResults", display);
         Account a = new Account();
         a.setAccountno(1);
         a.setBalance(0);
@@ -46,18 +34,18 @@ public class Testlesson2 {
         CashFlow cash1 = new CashFlow();
         cash1.setAccountNo(1);
         cash1.setAmount(1000);
-        cash1.setMvtDate(DateHelper.getDate("2010-01-15"));
         cash1.setType(CashFlow.CREDIT);
         sessionStatefull.insert(cash1);
         sessionStatefull.fireAllRules();
-        junit.framework.Assert.assertTrue(a.getBalance()==1000);
+        Assert.assertEquals(a.getBalance(), 1000, 0);
+
     }
     @Test
-    public void testdeuxFait3() throws Exception {
+    public void testTwofactsTwocashFlowMovement() throws Exception {
         sessionStatefull = KnowledgeSessionHelper
-                .getStatefulKnowledgeSessionWithCallback(kieContainer,"lesson2-session");
+                .getStatefulKnowledgeSessionWithCallback(kieContainer, "lesson2a-session");
         OutputDisplay display = new OutputDisplay();
-        sessionStatefull.setGlobal("showResult", display);
+        sessionStatefull.setGlobal("showResults", display);
         Account a = new Account();
         a.setAccountno(1);
         a.setBalance(0);
@@ -75,6 +63,42 @@ public class Testlesson2 {
         cash2.setType(CashFlow.CREDIT);
         sessionStatefull.insert(cash2);
         sessionStatefull.fireAllRules();
-        junit.framework.Assert.assertTrue(a.getBalance()==1000);
+        Assert.assertEquals(a.getBalance(), 1000, 0);
+    }
+
+    @Test
+    public void testcalculateBalance() throws Exception {
+        sessionStatefull = KnowledgeSessionHelper
+                .getStatefulKnowledgeSessionWithCallback(kieContainer, "lesson2-session");
+        OutputDisplay display = new OutputDisplay();
+        sessionStatefull.setGlobal("showResults", display);
+        Account a = new Account();
+        a.setAccountno(1);
+        a.setBalance(0);
+        sessionStatefull.insert(a);
+        CashFlow cash1 = new CashFlow();
+        cash1.setAccountNo(1);
+        cash1.setAmount(1000);
+        cash1.setMvtDate(DateHelper.getDate("2016-01-15"));
+        cash1.setType(CashFlow.CREDIT);
+        sessionStatefull.insert(cash1);
+        CashFlow cash2 = new CashFlow();
+        cash2.setAccountNo(1);
+        cash2.setAmount(500);
+        cash2.setMvtDate(DateHelper.getDate("2016-02-15"));
+        cash2.setType(CashFlow.DEBIT);
+        sessionStatefull.insert(cash2);
+        CashFlow cash3 = new CashFlow();
+        cash3.setAccountNo(1);
+        cash3.setAmount(1000);
+        cash3.setMvtDate(DateHelper.getDate("2016-04-15"));
+        cash3.setType(CashFlow.CREDIT);
+        sessionStatefull.insert(cash3);
+        AccountingPeriod period = new AccountingPeriod();
+        period.setStartDate(DateHelper.getDate("2016-01-01"));
+        period.setEndDate(DateHelper.getDate("2016-03-31"));
+        sessionStatefull.insert(period);
+        sessionStatefull.fireAllRules();
+        Assert.assertTrue(a.getBalance() == 500);
     }
 }
