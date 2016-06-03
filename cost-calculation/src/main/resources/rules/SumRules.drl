@@ -1,0 +1,72 @@
+
+package cost.calculation
+
+import cost.OrderLine;
+import cost.LeftToDistribute;
+import cost.Product;
+import cost.Pallet;
+import cost.CostCalculationRequest;
+import cost.CalculatedElement;
+import cost.HandlingCostElement;
+import cost.TaxesCostElement;
+import cost.TransportCostElement;
+import cost.Step;
+import cost.City;
+
+import java.lang.Math;
+
+rule "CalculateTotal"
+ruleflow-group "total"
+	when
+	$c : CostCalculationRequest(  )
+	$totalBoatTransport : Number( doubleValue > 100 )
+             from accumulate( $s : Step(transportType ==Step.Ship_TransportType) &&
+                              TransportCostElement(step ==$s, $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+	$totalTrainTransport : Number( doubleValue > 100 )
+            from accumulate( $s : Step(transportType ==Step.train_TransportType) &&
+                            TransportCostElement(step ==$s, $value : amount  ),
+                             init( double total = 0; ),
+                             action( total += $value; ),
+                             reverse( total -= $value; ),
+                             result( total ) )
+	$totalTruckTransport : Number( doubleValue > 100 )
+           from accumulate( $s : Step(transportType ==Step.truck_TransportType) &&
+                            TransportCostElement(step ==$s, $value : amount  ),
+                            init( double total = 0; ),
+                            action( total += $value; ),
+                            reverse( total -= $value; ),
+                            result( total ) )
+	
+	
+	
+	$totalTransport : Number( doubleValue > 100 )
+             from accumulate(  TransportCostElement( $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+    $totalTaxes : Number( doubleValue > 100 )
+             from accumulate(  TaxesCostElement( $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+     $totalHandling : Number( doubleValue > 100 )
+             from accumulate(  HandlingCostElement( $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+	then
+		System.out.println("NumberOfPallets="+$c.getPallets().size());
+		System.out.println("TotalShipTransport="+$totalBoatTransport);
+		System.out.println("TotalTrainTransport="+$totalTrainTransport);
+		System.out.println("TotalTruckTransport="+$totalTruckTransport);
+		System.out.println("TotalTransport="+$totalTransport);
+		System.out.println("TotalTaxes="+$totalTaxes);
+		System.out.println("TotalHandling="+$totalHandling);
+end;

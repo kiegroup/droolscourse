@@ -11,12 +11,8 @@
 
   <modules>
     <module>AccountProject</module>
-      <!--
-    <module>demodrools</module>
-    <module>simpleWebApp</module>
-    <module>droolscourse-service</module>
-      <module>drools-lesson1</module>
-      -->
+      <module>cost-calculation</module>
+
   </modules>
   <properties>
 
