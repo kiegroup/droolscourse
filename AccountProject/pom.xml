@@ -18,11 +18,12 @@
     <module>drools-lesson33</module>
     <module>drools-lesson34</module>
     <module>drools-lesson35</module>
-    <module>drools-lesson8</module>
+    <module>drools-lesson4</module>
     <module>drools-lesson-pojo</module>
   </modules>
   <build>
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>

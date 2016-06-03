@@ -85,7 +85,7 @@ public class Testlesson31 {
     @Test
     public void testForALl() throws Exception {
         sessionStatefull = KnowledgeSessionHelper
-                .getStatefulKnowledgeSessionWithCallback(kieContainer, "ksession-lesson3");
+                .getStatefulKnowledgeSessionWithCallback(kieContainer, "lesson31-session");
         OutputDisplay display = new OutputDisplay();
         sessionStatefull.setGlobal("showResult", display);
         Account a = new Account();

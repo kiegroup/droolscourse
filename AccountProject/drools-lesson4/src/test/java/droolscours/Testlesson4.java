@@ -10,7 +10,7 @@ import org.kie.api.runtime.KieSession;
 import util.KnowledgeSessionHelper;
 
 
-public class TestRuleFlow {
+public class Testlesson4 {
 	static KieContainer kieContainer;
 	KieSession sessionStatefull = null;
 
@@ -30,44 +30,40 @@ public class TestRuleFlow {
 	}
 
 	@Test
-	public void testdeuxFait1() {
+	public void testRuleFlow1() {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSession(kieContainer, "demo-ruleflow1-rules");
+				.getStatefulKnowledgeSessionForJBPM(kieContainer, "ksession-lesson4");
 		OutputDisplay display = new OutputDisplay();
 		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		sessionStatefull.insert(a);
-		AccountingPeriod period = new AccountingPeriod();
-		sessionStatefull.insert(period);
 		sessionStatefull.startProcess("RF1");
 		sessionStatefull.fireAllRules();
 	}
 	@Test
-	public void testdeuxFait2() {
+	public void testRuleFlow2() {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSession(kieContainer, "demo-ruleflow2-rules");
+				.getStatefulKnowledgeSessionForJBPM(kieContainer, "ksession-lesson4");
 		OutputDisplay display = new OutputDisplay();
 		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
 		sessionStatefull.insert(a);
-		AccountingPeriod period = new AccountingPeriod();
-		sessionStatefull.insert(period);
 		sessionStatefull.fireAllRules();
 	}
 	@Test
-	public void testdeuxFait3() {
+	public void testRuleFlow3() {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSession(kieContainer, "demo-ruleflow3-rules");
+				.getStatefulKnowledgeSession(kieContainer, "lesson4a-session");
 		OutputDisplay display = new OutputDisplay();
 		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();
-		a.setBalance(1500);
+		a.setBalance(500);
 		sessionStatefull.insert(a);
 		AccountingPeriod period = new AccountingPeriod();
 		sessionStatefull.insert(period);
-		
+
 		sessionStatefull.fireAllRules();
-		
+
 	}
 
 }

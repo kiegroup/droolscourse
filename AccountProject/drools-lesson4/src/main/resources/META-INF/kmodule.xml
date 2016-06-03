@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+
+    <kbase name="lesson4" packages="lesson4">
+        <ksession name="lesson4-session"/>
+    </kbase>
+    <kbase name="lesson4a" packages="lesson4a">
+        <ksession name="lesson4a-session"/>
+    </kbase>
+</kmodule>
