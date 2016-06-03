@@ -144,7 +144,7 @@ end
 
 ```
 
-And then the rule that sets the pallet as filled (full has the true value)
+And then the rule that sets the pallet as filled (full has the true value). We only set the value of a pallet that has been filled by one type of product by adding constranint heightLeft!= 2.0.
 
 ```
 rule "FillPalletIfNoProductGoesIn"
