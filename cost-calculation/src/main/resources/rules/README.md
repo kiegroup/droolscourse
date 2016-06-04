@@ -184,9 +184,285 @@ end
 ```
 
 ## Calculate the costs
+Now we take each cost and add a CostElement depending on the number of pallets we created in previous step
 
-TODO
+### Transport cost
+For each step type we calculate the cost
+
+```
+rule "boatTransportCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$s : Step(transportType ==Step.Ship_TransportType)	
+    then
+  		TransportCostElement t = new TransportCostElement(); 		
+  		t.setStep($s);
+  		t.setAmount($c.getPallets().size()*$s.getDistance()*0.2);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "trainTransportCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$s : Step(transportType ==Step.train_TransportType)  	
+    then
+  		TransportCostElement t = new TransportCostElement();		
+  		t.setStep($s);
+  		t.setAmount($c.getPallets().size()*$s.getDistance()*0.5);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "truckTransportCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$s : Step(transportType ==Step.truck_TransportType)
+    then
+  		TransportCostElement t = new TransportCostElement();
+  		t.setStep($s);
+  		t.setAmount($c.getPallets().size()*$s.getDistance()*1.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+```
+### Taxes Cost
+For each City we go through, we calculate the cost (Shangai and Rotterdam)
+As sometimes it depends on the weight, we have to sum the total amount of weigh on all pallets.
+Here we chose not to put all calculation in the drools session, so we do the sum in the them part of the rules. 
+Se here how we obtain the list of Pallet we want in an ArrayList. In the then part we then iterate on the founded pallet and in the pallet we go through all the products to sum the weight.
+```
+rule "ShangaiTaxesCost_bulk"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.ShangaiCityName)
+  		$listPallet : ArrayList( )
+              from collect(  Pallet(palletType == Product.transportType_bulkt) ) 	
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Double d : pp.getContentWeight().values()){
+  				totalWeight=totalWeight+d;
+  			}
+  		}
+  		t.setAmount(totalWeight*0.02);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "ShangaiTaxesCost_notbulk"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.ShangaiCityName)
+  	    $listPallet : ArrayList( )
+              from collect(  Pallet(palletType != Product.transportType_bulkt) )
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Product p : pp.getContentQuantity().keySet()){
+  				totalWeight=totalWeight+p.getWeight()* pp.getContentQuantity().get(p);
+  			}
+  		}
+  		t.setAmount(totalWeight*0.05);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "RotterdamTaxesCost_bulk_weight"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.RotterdamCityName)
+   		$listPallet : ArrayList( )
+              from collect(  Pallet(palletType == Product.transportType_bulkt) ) 	
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Double d : pp.getContentWeight().values()){
+  				totalWeight=totalWeight+d;
+  			}
+  		}
+  		t.setAmount(totalWeight*0.05);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+rule "RotterdamTaxesCost_notbulk_weight"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.RotterdamCityName)
+     	$listPallet : ArrayList( )
+              from collect(  Pallet(palletType != Product.transportType_bulkt) ) 	
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Product p : pp.getContentQuantity().keySet()){
+  				totalWeight=totalWeight+p.getWeight()* pp.getContentQuantity().get(p);
+  			}
+  		}
+  		t.setAmount(totalWeight*0.05);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+```
+
+### Handling Cost and taxes on the Handling
+Here we admit that it takes 12 hours to do the handling.
+Based on that we then see how many pallets we have to handle per hour and then depending on the what a person can handle per hour, we calculate the number of persons we need.
+```
+rule "ShangaiHandlingCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.ShangaiCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/13)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*20.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "RotterdamHandlingCostAndPersonTaxes"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.RotterdamCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/60)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*45.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+  		TaxesCostElement t1 = new TaxesCostElement();
+  		t1.setAmount(nbrePerson*1.0);
+  		$c.getCostElements().add(t1);
+  		insert(t1);
+end
+
+rule "TournaiHandlingCostAndPersonTaxes"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.TournaiCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/40)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*67.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+  		TaxesCostElement t1 = new TaxesCostElement();
+  		t1.setAmount(nbrePerson*2.0);
+  		$c.getCostElements().add(t1);
+  		insert(t1);
+end
+
+rule "LilleHandlingCostAndPersonTaxes"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.LilleCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/30)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*79.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+  		TaxesCostElement t1 = new TaxesCostElement();
+  		t1.setAmount(nbrePerson*30.0);
+  		$c.getCostElements().add(t1);
+  		insert(t1);
+end
+```
+
 
 ## Sum the results
+We use the accumulate function to show the results. We just show the result in the console. On a real project, the results could habe stored in a data structure.
 
-TODO
+```
+rule "CalculateTotal"
+ruleflow-group "total"
+	when
+	$c : CostCalculationRequest(  )
+	$totalBoatTransport : Number( doubleValue > 100 )
+             from accumulate( $s : Step(transportType ==Step.Ship_TransportType) &&
+                              TransportCostElement(step ==$s, $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+	$totalTrainTransport : Number( doubleValue > 100 )
+            from accumulate( $s : Step(transportType ==Step.train_TransportType) &&
+                            TransportCostElement(step ==$s, $value : amount  ),
+                             init( double total = 0; ),
+                             action( total += $value; ),
+                             reverse( total -= $value; ),
+                             result( total ) )
+	$totalTruckTransport : Number( doubleValue > 100 )
+           from accumulate( $s : Step(transportType ==Step.truck_TransportType) &&
+                            TransportCostElement(step ==$s, $value : amount  ),
+                            init( double total = 0; ),
+                            action( total += $value; ),
+                            reverse( total -= $value; ),
+                            result( total ) )
+	
+	
+	
+	$totalTransport : Number( doubleValue > 100 )
+             from accumulate(  TransportCostElement( $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+    $totalTaxes : Number( doubleValue > 100 )
+             from accumulate(  TaxesCostElement( $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+     $totalHandling : Number( doubleValue > 100 )
+             from accumulate(  HandlingCostElement( $value : amount  ),
+                              init( double total = 0; ),
+                              action( total += $value; ),
+                              reverse( total -= $value; ),
+                              result( total ) )
+	then
+		System.out.println("NumberOfPallets="+$c.getPallets().size());
+		System.out.println("TotalShipTransport="+$totalBoatTransport);
+		System.out.println("TotalTrainTransport="+$totalTrainTransport);
+		System.out.println("TotalTruckTransport="+$totalTruckTransport);
+		System.out.println("TotalTransport="+$totalTransport);
+		System.out.println("TotalTaxes="+$totalTaxes);
+		System.out.println("TotalHandling="+$totalHandling);
+end;
+```
+
