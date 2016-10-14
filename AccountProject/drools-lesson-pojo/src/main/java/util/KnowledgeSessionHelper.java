@@ -106,6 +106,9 @@ public class KnowledgeSessionHelper {
     public static KieSession getStatefulKnowledgeSessionForJBPM(
             KieContainer kieContainer, String sessionName) {
         KieSession session = getStatefulKnowledgeSessionWithCallback(kieContainer, sessionName);
+        //KieSessionConfiguration totot = session.getSessionConfiguration();
+        //totot.setProperty( );
+                
         session.addEventListener(new ProcessEventListener() {
 
             @Override
