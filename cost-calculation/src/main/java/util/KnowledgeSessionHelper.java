@@ -17,12 +17,15 @@ public class KnowledgeSessionHelper {
     }
 
     public static StatelessKieSession getStatelessKnowledgeSession(KieContainer kieContainer, String sessionName) {
+        System.setProperty("drools.dialect.java.compiler.lnglevel","1.7");
         StatelessKieSession kSession = kieContainer.newStatelessKieSession(sessionName);
 
         return kSession;
     }
 
     public static KieSession getStatefulKnowledgeSession(KieContainer kieContainer, String sessionName) {
+        System.setProperty("drools.dialect.java.compiler.lnglevel","1.7");
+
         KieSession kSession = kieContainer.newKieSession(sessionName);
 
         return kSession;
@@ -100,6 +103,7 @@ public class KnowledgeSessionHelper {
 
     public static KieSession getStatefulKnowledgeSessionWithCallback(
             KieContainer kieContainer, String sessionName) {
+        System.setProperty("drools.dialect.java.compiler.lnglevel","1.7");
         KieSession session = getStatefulKnowledgeSession(kieContainer, sessionName);
         session.addEventListener(new RuleRuntimeEventListener() {
             public void objectInserted(ObjectInsertedEvent event) {
