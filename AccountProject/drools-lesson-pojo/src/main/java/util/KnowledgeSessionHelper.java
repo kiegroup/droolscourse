@@ -24,8 +24,7 @@ public class KnowledgeSessionHelper {
     }
 
     public static KieSession getStatefulKnowledgeSession(KieContainer kieContainer, String sessionName) {
-        System.setProperty("drools.dialect.java.compiler.lnglevel","1.7");
-        KieSession kSession = kieContainer.newKieSession(sessionName);
+         KieSession kSession = kieContainer.newKieSession(sessionName);
         return kSession;
     }
 
