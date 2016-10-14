@@ -11,7 +11,7 @@ import util.DateHelper;
 import util.KnowledgeSessionHelper;
 
 
-public class Testlesson2 {
+public class Testlesson2bis {
 	static KieContainer kieContainer;
 	StatelessKieSession sessionStateless = null;
 	KieSession  sessionStatefull = null;
