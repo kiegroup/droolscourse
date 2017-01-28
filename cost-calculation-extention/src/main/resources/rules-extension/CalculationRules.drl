@@ -1,0 +1,219 @@
+
+package cost.calculation
+
+import cost.OrderLine;
+import cost.LeftToDistribute;
+import cost.Product;
+import cost.Pallet;
+import cost.CostCalculationRequest;
+import cost.CalculatedElement;
+import cost.HandlingCostElement;
+import cost.TaxesCostElement;
+import cost.TransportCostElement;
+import cost.Step;
+import cost.City;
+
+import java.lang.Math;
+import java.util.ArrayList;
+
+rule "boatTransportCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$s : Step(transportType ==Step.Ship_TransportType)	
+    then
+  		TransportCostElement t = new TransportCostElement(); 		
+  		t.setStep($s);
+  		t.setAmount($c.getPallets().size()*$s.getDistance()*0.2);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "trainTransportCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$s : Step(transportType ==Step.train_TransportType)  	
+    then
+  		TransportCostElement t = new TransportCostElement();		
+  		t.setStep($s);
+  		t.setAmount($c.getPallets().size()*$s.getDistance()*0.5);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "truckTransportCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$s : Step(transportType ==Step.truck_TransportType)
+    then
+  		TransportCostElement t = new TransportCostElement();
+  		t.setStep($s);
+  		t.setAmount($c.getPallets().size()*$s.getDistance()*1.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "ShangaiTaxesCost_bulk"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.ShangaiCityName)
+  		$listPallet : ArrayList( )
+              from collect(  Pallet(palletType == Product.transportType_bulkt) ) 	
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Double d : pp.getContentWeight().values()){
+  				totalWeight=totalWeight+d;
+  			}
+  		}
+  		t.setAmount(totalWeight*0.02);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "ShangaiTaxesCost_notbulk"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.ShangaiCityName)
+  	    $listPallet : ArrayList( )
+              from collect(  Pallet(palletType != Product.transportType_bulkt) )
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Product p : pp.getContentQuantity().keySet()){
+  				totalWeight=totalWeight+p.getWeight()* pp.getContentQuantity().get(p);
+  			}
+  		}
+  		t.setAmount(totalWeight*0.05);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "RotterdamTaxesCost_bulk_weight"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.RotterdamCityName)
+   		$listPallet : ArrayList( )
+              from collect(  Pallet(palletType == Product.transportType_bulkt) ) 	
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Double d : pp.getContentWeight().values()){
+  				totalWeight=totalWeight+d;
+  			}
+  		}
+  		t.setAmount(totalWeight*0.05);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+rule "RotterdamTaxesCost_notbulk_weight"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.RotterdamCityName)
+     	$listPallet : ArrayList( )
+              from collect(  Pallet(palletType != Product.transportType_bulkt) ) 	
+    then
+  		TaxesCostElement t = new TaxesCostElement();
+  		t.setCity($ci);
+  		double totalWeight=0;
+  		for (Object oo :  $listPallet){
+  			Pallet pp = (Pallet)oo;
+  			for (Product p : pp.getContentQuantity().keySet()){
+  				totalWeight=totalWeight+p.getWeight()* pp.getContentQuantity().get(p);
+  			}
+  		}
+  		t.setAmount(totalWeight*0.05);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "ShangaiHandlingCost"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.ShangaiCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/13)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*20.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+end
+
+rule "RotterdamHandlingCostAndPersonTaxes"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.RotterdamCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/60)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*45.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+  		TaxesCostElement t1 = new TaxesCostElement();
+  		t1.setAmount(nbrePerson*1.0);
+  		$c.getCostElements().add(t1);
+  		insert(t1);
+end
+
+rule "TournaiHandlingCostAndPersonTaxes"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.TournaiCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/40)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*67.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+  		TaxesCostElement t1 = new TaxesCostElement();
+  		t1.setAmount(nbrePerson*2.0);
+  		$c.getCostElements().add(t1);
+  		insert(t1);
+end
+
+rule "LilleHandlingCostAndPersonTaxes"
+	ruleflow-group "calculate"
+    when
+  		$c : CostCalculationRequest(  )
+  		$ci : City(name==City.LilleCityName)
+    then
+      	int n = $c.getPallets().size();
+  		int nbrePalletPerHour = Math.round(  n/12)+1;
+  		int nbrePerson =  Math.round( nbrePalletPerHour/30)+1;
+  		HandlingCostElement t = new HandlingCostElement();
+  		t.setCity($ci);
+  		t.setAmount(nbrePerson*12*79.0);
+  		$c.getCostElements().add(t);
+  		insert(t);
+  		TaxesCostElement t1 = new TaxesCostElement();
+  		t1.setAmount(nbrePerson*30.0);
+  		$c.getCostElements().add(t1);
+  		insert(t1);
+end

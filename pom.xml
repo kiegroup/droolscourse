@@ -12,16 +12,18 @@
     <modules>
         <module>AccountProject</module>
         <module>cost-calculation</module>
-
+        <module>cost-calculation-base</module>
+        <module>cost-calculation-extention</module>
+        <module>cost-calculation-run</module>
     </modules>
     <properties>
 
-    <junit-version>4.5</junit-version>
-    <cxf.version>2.2.6</cxf.version>
-    <spring-version>3.0.1.RELEASE</spring-version>
-    <commons-logging-version>1.1.1</commons-logging-version>
-      <drools.version>6.5.0.Final</drools.version>
-  </properties>
+        <junit-version>4.5</junit-version>
+        <cxf.version>2.2.6</cxf.version>
+        <spring-version>3.0.1.RELEASE</spring-version>
+        <commons-logging-version>1.1.1</commons-logging-version>
+        <drools.version>6.5.0.Final</drools.version>
+    </properties>
 
 
     <build>
@@ -52,34 +54,43 @@
         </pluginManagement>
     </build>
 
-  <dependencyManagement>
-    <dependencies>
-
-      <dependency>
-        <groupId>joda-time</groupId>
-        <artifactId>joda-time</artifactId>
-        <version>2.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.drools</groupId>
-        <artifactId>drools-compiler</artifactId>
-          <version>${drools.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jdt.core.compiler</groupId>
-        <artifactId>ecj</artifactId>
-        <version>4.4.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jbpm</groupId>
-        <artifactId>jbpm-bpmn2</artifactId>
-          <version>${drools.version}</version>
-      </dependency>
-        <dependency>
-            <groupId>org.kie</groupId>
-            <artifactId>kie-api</artifactId>
-            <version>${drools.version}</version>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.pymma-software.droolscourse</groupId>
+                <artifactId>cost-calculation-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pymma-software.droolscourse</groupId>
+                <artifactId>cost-calculation-extension</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-compiler</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jdt.core.compiler</groupId>
+                <artifactId>ecj</artifactId>
+                <version>4.4.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jbpm</groupId>
+                <artifactId>jbpm-bpmn2</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kie</groupId>
+                <artifactId>kie-api</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
 
             <!-- Apache CXF dependencies -->
             <dependency>
