@@ -53,7 +53,7 @@ public class TestExecercice {
 
     @Test
     public void testFirstOne() {
-        sessionStatefull = KnowledgeSessionHelper.getStatefulKnowledgeSessionForJBPM(kieContainer, "ksession4");
+        sessionStatefull = KnowledgeSessionHelper.getStatefulKnowledgeSessionForJBPM(kieContainer, "session-extension");
         City cityOfShangai = new City(City.ShangaiCityName);
         City cityOfRotterdam = new City(City.RotterdamCityName);
         City cityOfTournai = new City(City.TournaiCityName);

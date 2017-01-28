@@ -24,7 +24,7 @@ public class KnowledgeSessionHelper {
 
     public static KieSession getStatefulKnowledgeSession(KieContainer kieContainer, String sessionName) {
 
-        KieSession kSession = kieContainer.newKieSession();
+        KieSession kSession = kieContainer.newKieSession(sessionName);
 
         return kSession;
     }
