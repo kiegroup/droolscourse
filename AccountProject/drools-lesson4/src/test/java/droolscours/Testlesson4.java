@@ -26,7 +26,7 @@ public class Testlesson4 {
 
 	@After
 	public void tearDown() throws Exception {
-		System.out.println("------------Après ------------");
+		System.out.println("------------After ------------");
 	}
 
 	@Test

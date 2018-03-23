@@ -1,6 +1,8 @@
 package droolscours;
 
 import droolscours.util.OutputDisplay;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kie.api.event.rule.ObjectDeletedEvent;
@@ -23,7 +25,14 @@ public class Testlesson1 {
     public static void beforeClass() {
         kieContainer = KnowledgeSessionHelper.createRuleBase();
     }
-
+    @Before
+    public void setUp() {
+        System.out.println("-----------Before-------------");
+    }
+    @After
+    public void tearDown() {
+        System.out.println("-----------After-----------");
+    }
 
     @Test
     public void testRuleOneFactWithoutFact() {
