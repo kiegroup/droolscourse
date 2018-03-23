@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>droolscourse</artifactId>
-        <groupId>com.pymma-software.droolscourse</groupId>
+        <groupId>org.kiegroup</groupId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,7 +12,7 @@
     <artifactId>cost-calculation-extension</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.pymma-software.droolscourse</groupId>
+            <groupId>org.kiegroup</groupId>
             <artifactId>cost-calculation-base</artifactId>
         </dependency>
         <dependency>
@@ -37,7 +37,7 @@
             <artifactId>kie-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.pymma-software.droolscourse</groupId>
+            <groupId>org.kiegroup</groupId>
             <artifactId>drools-lesson-pojo</artifactId>
             <version>${project.version}</version>
         </dependency>
