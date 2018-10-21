@@ -13,7 +13,7 @@ import droolscours.util.OutputDisplay;
 global OutputDisplay showResult;
 
 
-rule "Account group1"
+rule "Account group1 4"
 	ruleflow-group "Group1"
 	when
 		Account(  )
@@ -21,7 +21,7 @@ rule "Account group1"
 		showResult.showText("Account in Group1");
 		
 end
-rule "Account group2"
+rule "Account group2 4"
 	ruleflow-group "Group2"
 	when
 		Account(  )

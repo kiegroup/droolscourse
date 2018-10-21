@@ -46,9 +46,11 @@ public class Testlesson1 {
     public void testRuleOneFactWithFact() {
         sessionStatefull = KnowledgeSessionHelper
                 .getStatefulKnowledgeSession(kieContainer, "lesson1-session");
+       
         Account a = new Account();
         sessionStatefull.insert(a);
         sessionStatefull.fireAllRules();
+        
         System.out.println("So you saw something ;)");
     }
 

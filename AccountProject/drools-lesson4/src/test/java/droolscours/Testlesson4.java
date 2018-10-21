@@ -28,6 +28,8 @@ public class Testlesson4 {
 	public void tearDown() throws Exception {
 		System.out.println("------------After ------------");
 	}
+	
+	
 
 	@Test
 	public void testRuleFlow1() {

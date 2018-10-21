@@ -9,7 +9,7 @@ import droolscours.util.OutputDisplay;
 
 global OutputDisplay showResults;
 
-rule "Credit rule"
+rule "Credit rule 2"
 
    	when
    		$cash :CashFlow( $aDate : mvtDate, $no : accountNo ,type == CashFlow.CREDIT )
@@ -19,7 +19,7 @@ rule "Credit rule"
    		$acc.setBalance($acc.getBalance()+$cash.getAmount());
    		showResults.showText("Account no "+$acc.getAccountno()+ " has now a balance of "+$acc.getBalance());
    end
-rule "Debit rule"
+rule "Debit rule 2"
 
 	when
 		$cash :CashFlow( $aDate : mvtDate, $no : accountNo ,type == CashFlow.DEBIT )

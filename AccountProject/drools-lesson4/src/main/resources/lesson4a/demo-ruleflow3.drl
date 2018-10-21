@@ -18,7 +18,7 @@ rule "start process"
 		kcontext.getKieRuntime().startProcess("RF3");
 end
 
-rule "Account group1"
+rule "Account group1 4a"
 	ruleflow-group "Group1"
 	when
 		Account(balance > 0  )
@@ -26,7 +26,7 @@ rule "Account group1"
 		showResult.showText("Account in Group1 > 1000 ");
 		
 end
-rule "Account group2"
+rule "Account group2 4a"
 	ruleflow-group "Group2"
 	when
 		Account(  )
