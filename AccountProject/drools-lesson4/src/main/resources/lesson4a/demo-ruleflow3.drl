@@ -1,5 +1,5 @@
 //#created on: 30 oct. 2010
-package cours
+package lesson4a
 
 //#list any import classes here.
 import droolscours.Account;

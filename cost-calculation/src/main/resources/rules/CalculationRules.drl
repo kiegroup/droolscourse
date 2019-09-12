@@ -1,5 +1,5 @@
 
-package cost.calculation
+package rules
 
 import cost.OrderLine;
 import cost.LeftToDistribute;

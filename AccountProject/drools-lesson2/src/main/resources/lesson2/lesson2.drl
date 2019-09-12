@@ -1,5 +1,5 @@
 
-package cours
+package lesson2
 
 
 import droolscours.Account;

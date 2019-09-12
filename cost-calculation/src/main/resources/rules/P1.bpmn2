@@ -12,7 +12,7 @@
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:tns="http://www.jboss.org/drools">
 
-  <process processType="Private" isExecutable="true" id="P1" name="CalcuateCostProces" tns:packageName="cost.calculation" >
+  <process processType="Private" isExecutable="true" id="P1" name="CalcuateCostProces" tns:packageName="rules" >
 
     <!-- nodes -->
     <startEvent id="_1"  isInterrupting="true">

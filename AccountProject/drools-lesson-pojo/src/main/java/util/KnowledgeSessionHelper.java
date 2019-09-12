@@ -7,7 +7,6 @@ import org.kie.api.event.rule.*;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
-
 public class KnowledgeSessionHelper {
 
     public static KieContainer createRuleBase() {
