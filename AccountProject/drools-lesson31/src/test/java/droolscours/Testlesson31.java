@@ -29,6 +29,7 @@ public class Testlesson31 {
         cashFlow.setType(CashFlow.CREDIT);
         sessionStatefull.insert(cashFlow);
         sessionStatefull.fireAllRules();
+        sessionStatefull.dispose();
     }
 
     @Test

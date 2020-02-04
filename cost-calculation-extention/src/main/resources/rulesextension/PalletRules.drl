@@ -1,4 +1,4 @@
-package rules-extension
+package rulesextension
  
 import cost.OrderLine;
 import cost.LeftToDistribute;

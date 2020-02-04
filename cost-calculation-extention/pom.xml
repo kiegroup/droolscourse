@@ -15,6 +15,7 @@
 		<dependency>
 			<groupId>org.kiegroup</groupId>
 			<artifactId>cost-calculation-base</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
