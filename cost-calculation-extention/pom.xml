@@ -15,6 +15,7 @@
 		<dependency>
 			<groupId>org.kiegroup</groupId>
 			<artifactId>cost-calculation-base</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
@@ -57,7 +58,7 @@
 			<plugin>
 				<groupId>org.kie</groupId>
 				<artifactId>kie-maven-plugin</artifactId>
-				<version>7.13.0.Final</version>
+				<version>${drools.version}</version>
 				<extensions>true</extensions>
 			</plugin>
 		</plugins>

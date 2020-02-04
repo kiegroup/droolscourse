@@ -63,7 +63,6 @@ public class Testlesson1 {
 
         sessionStatefull.setGlobal("showResult", display);
         sessionStatefull.insert(a);
-
         sessionStatefull.fireAllRules();
         System.out.println("So you saw something ;)");
     }

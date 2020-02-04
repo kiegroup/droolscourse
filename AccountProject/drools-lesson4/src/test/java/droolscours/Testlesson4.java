@@ -55,7 +55,7 @@ public class Testlesson4 {
 	@Test
 	public void testRuleFlow3() {
 		sessionStatefull = KnowledgeSessionHelper
-				.getStatefulKnowledgeSession(kieContainer, "lesson4a-session");
+				.getStatefulKnowledgeSessionForJBPM(kieContainer, "lesson4a-session");
 		OutputDisplay display = new OutputDisplay();
 		sessionStatefull.setGlobal("showResult", display);
 		Account a = new Account();

@@ -1,4 +1,4 @@
-package cost.calculation
+package rulesextension
  
 import cost.OrderLine;
 import cost.LeftToDistribute;

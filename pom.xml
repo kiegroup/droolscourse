@@ -22,7 +22,7 @@
         <cxf.version>2.2.6</cxf.version>
         <spring-version>3.0.1.RELEASE</spring-version>
         <commons-logging-version>1.1.1</commons-logging-version>
-        <drools.version>7.13.0.Final</drools.version>
+        <drools.version>7.32.0.Final</drools.version>
     </properties>
 
 

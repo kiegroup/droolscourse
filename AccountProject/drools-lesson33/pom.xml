@@ -54,7 +54,7 @@
 			<plugin>
 				<groupId>org.kie</groupId>
 				<artifactId>kie-maven-plugin</artifactId>
-				<version>7.13.0.Final</version>
+				<version>${drools.version}</version>
 				<extensions>true</extensions>
 			</plugin>
 		</plugins>
