@@ -25,6 +25,7 @@ public class Testlesson1 {
     public static void beforeClass() {
         kieContainer = KnowledgeSessionHelper.createRuleBase();
     }
+    
     @Before
     public void setUp() {
         System.out.println("-----------Before-------------");
