@@ -4,5 +4,4 @@
     <kbase name="lesson1" packages="lesson1">
         <ksession name="lesson1-session"/>
     </kbase>
-
 </kmodule>
